@@ -1,0 +1,3 @@
+const MAIN_PREFIX = "MAIN";
+
+export const SET_ISSUES = `${MAIN_PREFIX}/SET_ISSUES`;
