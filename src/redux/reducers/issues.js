@@ -7,10 +7,9 @@ const initialState = {
   const issuesReduser = (state = initialState, action) => {
     switch (action.type) {
       case SET_ISSUES: {
-        const { issues } = action.payload;
         return {
           ...state,
-          issues
+          issues: action.payload
         };
       }
       default:

@@ -1,4 +1,5 @@
 import { combineReducers } from "redux";
-import issues from "./issues";
+import repo from "./repo";
+import url from "./url";
 
-export default combineReducers({ issues });
+export default combineReducers({ url, repo });
