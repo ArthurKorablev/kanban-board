@@ -2,6 +2,7 @@ import { SET_URL } from "../actionTypes";
 
 const initialState = {
     url: '',
+    urlIsLoaded: false
   };
 
   const urlReduser = (state = initialState, action) => {
@@ -10,6 +11,7 @@ const initialState = {
         return {
           ...state,
           url: action.payload,
+          urlIsLoaded: true
         };
       }
       default:

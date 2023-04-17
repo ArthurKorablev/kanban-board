@@ -5,7 +5,7 @@ import { SET_URL } from "./actionTypes";
 export const setUrl = url => ({
   type: SET_URL,
   payload: url
-})
+});
 
 export const setIssues = issues => ({
     type: SET_ISSUES,

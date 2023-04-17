@@ -2,7 +2,7 @@ import { SET_REPO } from "../actionTypes";
 
 const initialState = {
     repo: {},
-    isLoaded: false
+    repoIsLoaded: false
   };
 
   const repoReduser = (state = initialState, action) => {
@@ -11,7 +11,7 @@ const initialState = {
         return {
           ...state,
           repo: action.payload,
-          isLoaded: true
+          repoIsLoaded: true
         };
       }
       default:

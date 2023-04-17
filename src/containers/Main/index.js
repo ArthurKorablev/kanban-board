@@ -62,16 +62,16 @@ import Form from "react-bootstrap/Form";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 
-const Main = ({ setRepo, setUrl, repoRedux, urlRedux, isLoadedRedux }) => {
+const Main = ({ setRepo, setUrl, repoRedux, urlRedux, repoIsLoadedRedux, urlIsLoadedRedux }) => {
 
   const [isLoad, setIsLoad] = useState(false);
 
   useEffect(() => {
-    if (!isLoad && urlRedux != "") {
+    if (urlIsLoadedRedux) {
       getRepo(urlRedux);
     }
-  }, [isLoad]);
-
+  }, [urlIsLoadedRedux]);
+  
   const getRepo = async (url) => {
     console.log(url)
     const response = await fetch(url);
@@ -81,6 +81,7 @@ const Main = ({ setRepo, setUrl, repoRedux, urlRedux, isLoadedRedux }) => {
 
   const onSubmit = (event) => {
     event.preventDefault();
+    // setUrl(event.target.value)
     setIsLoad(false);
   }
 
@@ -108,8 +109,9 @@ const Main = ({ setRepo, setUrl, repoRedux, urlRedux, isLoadedRedux }) => {
 
 const mapStateToProps = (state) => ({
   urlRedux: state.url.url,
+  urlIsLoadedRedux: state.url.urlIsLoaded,
   repoRedux: state.repo.repo,
-  isLoadedRedux: state.repo.isLoaded,
+  repoIsLoadedRedux: state.repo.repoIsLoaded,
   
 });
 // const mapStateToProps = (state) => {
