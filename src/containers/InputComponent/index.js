@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import Nav from 'react-bootstrap/Nav';
-import { setIssues, setUrl, setRepo, setUrlIsLoaded } from "../../redux/actions";
-import { getUrlApi } from '../../modules.js';
+import { setUrl, setRepo, setUrlIsLoaded } from "../../redux/actions";
+import { getUrlApi, getDataFromApi } from '../../modules.js';
 import { connect } from "react-redux";
 
 import Button from "react-bootstrap/Button";
@@ -13,15 +13,9 @@ const InputComponent = ({ setRepo, setUrl, setUrlIsLoaded, repoRedux, urlRedux, 
 
   useEffect(() => {
     if (urlIsLoadedRedux) {
-      getRepo(getUrlApi(urlRedux));
+      getDataFromApi(getUrlApi(urlRedux), setRepo);
     }
   }, [urlIsLoadedRedux]);
-  
-  const getRepo = async (url) => {
-    const response = await fetch(url);
-    const data = await response.json();
-    setRepo(data);
-  };
 
   const onSubmit = (event) => {
     event.preventDefault();
@@ -35,7 +29,7 @@ const InputComponent = ({ setRepo, setUrl, setUrlIsLoaded, repoRedux, urlRedux, 
           <Col xs={11}>
             <Form.Control placeholder="Enter repo URL" value={urlRedux} onChange={(e)=>{setUrl(e.target.value)}}/>
             <Form.Text>
-              {urlIsLoadedRedux ? <Nav.Link to={urlRedux}>{urlRedux}</Nav.Link> : ''} 
+              {urlIsLoadedRedux ? <Nav.Link href={urlRedux}>{urlRedux}</Nav.Link> : ''} 
             </Form.Text>
           </Col>
 
