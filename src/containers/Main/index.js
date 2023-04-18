@@ -1,60 +1,7 @@
-// import { useEffect, useState } from "react";
-// import { setIssues, setUrl, setRepo } from "../../redux/actions";
-// import { connect } from "react-redux";
-
-// import Button from "react-bootstrap/Button";
-// import Form from "react-bootstrap/Form";
-// import Col from "react-bootstrap/Col";
-// import Row from "react-bootstrap/Row";
-
-// const Main = ({ setRepo, setUrl, repoRedux, urlRedux, isLoadedRedux }) => {
-  
-//   useEffect(() => {
-//     if (!isLoadedRedux) {
-//       getRepo();
-//     }
-//   }, [isLoadedRedux]);
-
-//   const getRepo = async () => {
-//     const response = await fetch("https://api.github.com/repos/facebook/react");
-//     const data = await response.json();
-//     setRepo(data);
-//   };
-
-//   return (
-//     <div>
-//       <Form className="m-4">
-//         <Row>
-//           <Col xs={11}>
-//             <Form.Control placeholder="Enter repo URL" />
-//             <Form.Text muted>
-//               Your password must be 8-20 characters long
-//             </Form.Text>
-//           </Col>
-
-//           <Col xs="auto">
-//             <Button type="submit" className="mb-2">
-//               Submit
-//             </Button>
-//           </Col>
-//         </Row>
-//       </Form>
-//     </div>
-//   );
-// };
-
-// const mapStateToProps = (state) => ({
-//   repoRedux: state.repo.repo,
-//   isLoadedRedux: state.repo.isLoaded,
-//   // urlRedux: state.url.url
-// });
-// // const mapStateToProps = (state) => {
-// //   console.log(state);
-// // };
-// export default connect(mapStateToProps, { setRepo })(Main);
-
-import { useEffect, useState } from "react";
-import { setIssues, setUrl, setRepo } from "../../redux/actions";
+import { useEffect } from "react";
+import Nav from 'react-bootstrap/Nav';
+import { setIssues, setUrl, setRepo, setUrlIsLoaded } from "../../redux/actions";
+import { getUrlApi } from '../../modules.js';
 import { connect } from "react-redux";
 
 import Button from "react-bootstrap/Button";
@@ -62,18 +9,15 @@ import Form from "react-bootstrap/Form";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 
-const Main = ({ setRepo, setUrl, repoRedux, urlRedux, repoIsLoadedRedux, urlIsLoadedRedux }) => {
-
-  const [isLoad, setIsLoad] = useState(false);
+const Main = ({ setRepo, setUrl, setUrlIsLoaded, repoRedux, urlRedux, repoIsLoadedRedux, urlIsLoadedRedux }) => {
 
   useEffect(() => {
     if (urlIsLoadedRedux) {
-      getRepo(urlRedux);
+      getRepo(getUrlApi(urlRedux));
     }
   }, [urlIsLoadedRedux]);
   
   const getRepo = async (url) => {
-    console.log(url)
     const response = await fetch(url);
     const data = await response.json();
     setRepo(data);
@@ -81,8 +25,7 @@ const Main = ({ setRepo, setUrl, repoRedux, urlRedux, repoIsLoadedRedux, urlIsLo
 
   const onSubmit = (event) => {
     event.preventDefault();
-    // setUrl(event.target.value)
-    setIsLoad(false);
+    setUrlIsLoaded(true);
   }
 
   return (
@@ -91,8 +34,8 @@ const Main = ({ setRepo, setUrl, repoRedux, urlRedux, repoIsLoadedRedux, urlIsLo
         <Row>
           <Col xs={11}>
             <Form.Control placeholder="Enter repo URL" value={urlRedux} onChange={(e)=>{setUrl(e.target.value)}}/>
-            <Form.Text muted>
-              Your password must be 8-20 characters long
+            <Form.Text>
+              {urlIsLoadedRedux ? <Nav.Link to={urlRedux}>{urlRedux}</Nav.Link> : ''} 
             </Form.Text>
           </Col>
 
@@ -109,12 +52,9 @@ const Main = ({ setRepo, setUrl, repoRedux, urlRedux, repoIsLoadedRedux, urlIsLo
 
 const mapStateToProps = (state) => ({
   urlRedux: state.url.url,
-  urlIsLoadedRedux: state.url.urlIsLoaded,
+  urlIsLoadedRedux: state.urlIsLoaded.urlIsLoaded,
   repoRedux: state.repo.repo,
-  repoIsLoadedRedux: state.repo.repoIsLoaded,
-  
+  repoIsLoadedRedux: state.repo.repoIsLoaded,  
 });
-// const mapStateToProps = (state) => {
-//   console.log(state);
-// };
-export default connect(mapStateToProps, { setRepo, setUrl })(Main);
+
+export default connect(mapStateToProps, { setRepo, setUrl, setUrlIsLoaded })(Main);
