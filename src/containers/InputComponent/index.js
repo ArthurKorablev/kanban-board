@@ -9,7 +9,7 @@ import Form from "react-bootstrap/Form";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 
-const Main = ({ setRepo, setUrl, setUrlIsLoaded, repoRedux, urlRedux, repoIsLoadedRedux, urlIsLoadedRedux }) => {
+const InputComponent = ({ setRepo, setUrl, setUrlIsLoaded, repoRedux, urlRedux, repoIsLoadedRedux, urlIsLoadedRedux }) => {
 
   useEffect(() => {
     if (urlIsLoadedRedux) {
@@ -57,4 +57,4 @@ const mapStateToProps = (state) => ({
   repoIsLoadedRedux: state.repo.repoIsLoaded,  
 });
 
-export default connect(mapStateToProps, { setRepo, setUrl, setUrlIsLoaded })(Main);
+export default connect(mapStateToProps, { setRepo, setUrl, setUrlIsLoaded })(InputComponent);
