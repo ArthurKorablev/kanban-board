@@ -11,3 +11,13 @@ export const getUrlApi = (url) => {
     return urlApi.join('');
 };
 
+export const getUrlIssuesApi = (api) => {
+    const urlIssuesApi = api.replace('{/number}', '');
+    return urlIssuesApi;
+  };
+
+  export const onSubmit = (event, callBack) => {
+    event.preventDefault();
+    callBack(true);
+  }
+

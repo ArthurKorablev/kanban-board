@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import Nav from 'react-bootstrap/Nav';
 import { setUrl, setRepo, setUrlIsLoaded } from "../../redux/actions";
-import { getUrlApi, getDataFromApi } from '../../modules.js';
+import { getUrlApi, getDataFromApi, onSubmit } from '../../modules';
 import { connect } from "react-redux";
 
 import Button from "react-bootstrap/Button";
@@ -17,14 +17,9 @@ const InputComponent = ({ setRepo, setUrl, setUrlIsLoaded, repoRedux, urlRedux, 
     }
   }, [urlIsLoadedRedux]);
 
-  const onSubmit = (event) => {
-    event.preventDefault();
-    setUrlIsLoaded(true);
-  }
-
   return (
     <div>
-      <Form className="m-4" onSubmit={(event) => onSubmit(event)}>
+      <Form className="m-4" onSubmit={(event) => onSubmit(event, setUrlIsLoaded)}>
         <Row>
           <Col xs={11}>
             <Form.Control placeholder="Enter repo URL" value={urlRedux} onChange={(e)=>{setUrl(e.target.value)}}/>
