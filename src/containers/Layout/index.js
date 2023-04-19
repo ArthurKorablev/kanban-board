@@ -3,9 +3,14 @@ import { setIssues } from "../../redux/actions";
 import { useEffect } from "react";
 import { getDataFromApi, getUrlIssuesApi } from "../../modules";
 
-const Layout = ({ repoRedux, repoIsLoadedRedux, setIssues, issuesRedux }) => {
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 
-    const taskStatuses = ['Todo', 'Progres', 'Done'];
+import IssueCard from "../IssueCard";
+
+
+const Layout = ({ repoRedux, repoIsLoadedRedux, setIssues, issuesRedux }) => {
 
     const {issues_url} = repoRedux;
 
@@ -15,9 +20,22 @@ const Layout = ({ repoRedux, repoIsLoadedRedux, setIssues, issuesRedux }) => {
         }
     }, [repoIsLoadedRedux]);
 
+    console.log(issuesRedux)
+
     return(
         <div>
-
+            <Container>
+                <Row>
+                 {/* {taskStatuses.map(status => (
+                    <Col key={status} status={status}>
+                        <h3>{status}</h3>
+                        {issuesRedux.map((issue, index) => (
+                            <IssueCard key={index} issue = {issue} status= {status}/>
+                        ))}
+                    </Col>
+                 ))} */}
+                </Row>
+            </Container>
         </div>
     );
 }
