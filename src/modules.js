@@ -21,3 +21,11 @@ export const getUrlIssuesApi = (api) => {
     callBack(true);
   }
 
+  export const calculateDate = (creatingIssueDate) => {
+    const currentDate = new Date();
+    const date = Date.parse(creatingIssueDate);
+    const time = Math.abs(currentDate - date);
+    const days = Math.ceil(time / (1000 * 60 * 60 * 24))
+    return days;
+  }
+

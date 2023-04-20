@@ -11,7 +11,8 @@ import IssueCard from "../IssueCard";
 
 
 const Layout = ({ repoRedux, repoIsLoadedRedux, setIssues, issuesRedux }) => {
-
+    
+    const taskStatuses = ['Todo', 'Progres', 'Done'];
     const {issues_url} = repoRedux;
 
     useEffect(() => {
@@ -20,20 +21,14 @@ const Layout = ({ repoRedux, repoIsLoadedRedux, setIssues, issuesRedux }) => {
         }
     }, [repoIsLoadedRedux]);
 
-    console.log(issuesRedux)
 
     return(
         <div>
             <Container>
-                <Row>
-                 {/* {taskStatuses.map(status => (
-                    <Col key={status} status={status}>
-                        <h3>{status}</h3>
-                        {issuesRedux.map((issue, index) => (
-                            <IssueCard key={index} issue = {issue} status= {status}/>
-                        ))}
-                    </Col>
-                 ))} */}
+                <Row className="p-1">
+                    {taskStatuses.map(status => (
+                        <IssueCard key={status} status={status}/>
+                    ))}
                 </Row>
             </Container>
         </div>
