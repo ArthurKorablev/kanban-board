@@ -9,7 +9,7 @@ import {
 } from "../../modules";
 
 import Container from "react-bootstrap/Container";
-import Row from "react-bootstrap/Row";
+
 
 import IssueCard from "../IssueCard";
 
@@ -34,16 +34,15 @@ const Layout = ({
   return (
     <div>
       <Container>
-        <Row className="p-1">
-          {taskStatuses.map((status) => (
+
+
             <IssueCard
-              key={status}
-              status={status}
+
               issuesCurrentStatus={issuesCurrentStatus}
               taskStatuses={taskStatuses}
             />
-          ))}
-        </Row>
+
+
       </Container>
     </div>
   );
