@@ -19,12 +19,14 @@ export const getUrlIssuesApi = (api) => {
 export const setBoardsAndIssues = (statuses, issues) => {
   let boardsWithIssues = [];
   for (let i = 0; i < statuses.length; i++) {
-    const filteredIssues = issues.filter(issue => issue.currentStatus === statuses[i]);
+    const filteredIssues = issues.filter(
+      (issue) => issue.currentStatus === statuses[i]
+    );
     console.log(issues);
-    boardsWithIssues.push({title: statuses[i], issues: filteredIssues});
+    boardsWithIssues.push({ title: statuses[i], issues: filteredIssues });
   }
   return boardsWithIssues;
-}
+};
 
 export const onSubmit = (event, callBack) => {
   event.preventDefault();
@@ -62,6 +64,9 @@ export const issueWithCurrentStatus = (issuesArrey) => {
   return issuesCurrentStatus;
 };
 
+
+
+
 export const dragOverHandler = (e) => {
   e.preventDefault();
   e.target.style.boxShedow = "0 4px 3px gray";
@@ -74,7 +79,6 @@ export const dragLeavHandler = (e) => {
 };
 
 export const dragStartHandler = (e, bordStatus, issue) => {
-  
   return {
     ...issue,
     currenrStatus: bordStatus,
@@ -84,7 +88,7 @@ export const dragStartHandler = (e, bordStatus, issue) => {
 export const dragEndHandler = (e, bordStatus, issue) => {
   e.preventDefault();
   e.target.style.boxShedow = "none";
-  
+
   return {
     ...issue,
     currenrStatus: bordStatus,
@@ -92,7 +96,6 @@ export const dragEndHandler = (e, bordStatus, issue) => {
 };
 
 export const dropHaddler = (e, bordStatus, issue) => {
-  
   e.preventDefault();
   return {
     ...issue,

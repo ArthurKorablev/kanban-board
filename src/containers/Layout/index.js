@@ -31,8 +31,6 @@ const Layout = ({
 
   const issuesCurrentStatus = issueWithCurrentStatus(issuesRedux);
 
-  const boardsWithIssues = setBoardsAndIssues(taskStatuses, issuesCurrentStatus);
-
   return (
     <div>
       <Container>
@@ -42,6 +40,7 @@ const Layout = ({
               key={status}
               status={status}
               issuesCurrentStatus={issuesCurrentStatus}
+              taskStatuses={taskStatuses}
             />
           ))}
         </Row>

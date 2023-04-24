@@ -2,28 +2,31 @@ import Card from "react-bootstrap/Card";
 import Col from "react-bootstrap/Col";
 import { connect } from "react-redux";
 import {
+  setBoardsAndIssues,
   calculateDate,
-  issueWithCurrentStatus,
   dragOverHandler,
   dragLeavHandler,
   dragStartHandler,
   dragEndHandler,
   dropHaddler,
 } from "../../modules";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const IssueCard = ({
-  issuesRedux,
-  taskStatuses,
   status,
-  urlRedux,
-  retrievedIssuesCurrentStatus,
   issuesCurrentStatus,
+  taskStatuses
 }) => {
-  // const issuesCurrentStatus = issueWithCurrentStatus(issuesRedux);
-  // const issuesCurrentStatus = JSON.parse(localStorage.getItem(urlRedux))
+  
+  const [boards, setBoards] = useState(null);
   const [currentBord, setCurrentBord] = useState(null);
   const [currentIssue, setCurrentIssue] = useState(null);
+
+  useEffect(()=>{
+    setBoards(setBoardsAndIssues(taskStatuses, issuesCurrentStatus))
+  }, [])
+
+  console.log(boards);
 
   return (
     <>
