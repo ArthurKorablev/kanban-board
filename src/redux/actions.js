@@ -1,7 +1,11 @@
-import { SET_ISSUES } from "./actionTypes";
-import { SET_REPO } from "./actionTypes";
-import { SET_URL } from "./actionTypes";
-import { SET_URL_IS_LOADED } from "./actionTypes";
+import {
+  SET_ISSUES,
+  SET_REPO,
+  SET_URL,
+  SET_URL_IS_LOADED,
+  SET_BOARDS,
+  SET_BOARDS_IS_LOADED,
+} from "./actionTypes";
 
 export const setUrl = (url) => ({
   type: SET_URL,
@@ -21,4 +25,14 @@ export const setRepo = (repo) => ({
 export const setUrlIsLoaded = (flag) => ({
   type: SET_URL_IS_LOADED,
   payload: flag,
+});
+
+export const setBoards = (statuses, issues) => ({
+  type: SET_BOARDS,
+  payload: { statuses: statuses, issues: issues },
+});
+
+export const setBoardsIsLoaded = (flag) => ({
+  type: SET_BOARDS_IS_LOADED,
+  payload: flag
 });

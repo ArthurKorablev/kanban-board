@@ -1,7 +1,10 @@
 import Card from "react-bootstrap/Card";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
+
 import { connect } from "react-redux";
+import { setBoards, setBoardsIsLoaded } from "../../redux/actions";
+
 import {
   setBoardsAndIssues,
   calculateDate,
@@ -13,21 +16,30 @@ import {
 } from "../../modules";
 import { useEffect, useState } from "react";
 
-const IssueCard = ({ status, issuesCurrentStatus, taskStatuses }) => {
-  const [boards, setBoards] = useState(null);
+const IssueCard = ({ status, issuesCurrentStatus, taskStatuses, boardsRedux, boardIsLoadedRedux }) => {
+
+  // const [boards, setBoards] = useState([]);
+  const [isLoaded, setIsLoaded] = useState(false);
   const [currentBord, setCurrentBord] = useState(null);
   const [currentIssue, setCurrentIssue] = useState(null);
-
+  
+  console.log(issuesCurrentStatus);
   useEffect(() => {
-    setBoards(setBoardsAndIssues(taskStatuses, issuesCurrentStatus));
-  }, []);
+     if(!boardIsLoadedRedux){
+      setBoards(taskStatuses, issuesCurrentStatus);
+      setBoardsIsLoaded(true);
+      setIsLoaded(true)
+    }
+    
+  }, [boardIsLoadedRedux]);
 
-  console.log(boards);
-
+  console.log(boardsRedux);
+  console.log(boardIsLoadedRedux);
+  console.log(isLoaded);
   return (
     <>
       <Row>
-        {boards.map((board) => (
+        {boardsRedux.map((board) => (
           <Col
             className="m-2 p-4"
             style={{
@@ -38,16 +50,16 @@ const IssueCard = ({ status, issuesCurrentStatus, taskStatuses }) => {
           >
             <h2>{board.title}</h2>
             {board.issues.map((issue) => (
-              <Card 
-              style={{ width: '23rem' }}
-              className="mb-3" 
-              border="dark"
-              onDragOver={(e) => dragOverHandler(e)}
-              onDragLeave={(e) => dragLeavHandler(e)}
-              onDragStart={(e) => dragStartHandler(e, status, issue)}
-              onDragEnd={(e) => dragEndHandler(e)}
-              onDrop={(e) => dropHaddler(e, status, issue)}
-              draggable={true}
+              <Card
+                style={{ width: "23rem" }}
+                className="mb-3"
+                border="dark"
+                onDragOver={(e) => dragOverHandler(e)}
+                onDragLeave={(e) => dragLeavHandler(e)}
+                onDragStart={(e) => dragStartHandler(e, status, issue)}
+                onDragEnd={(e) => dragEndHandler(e)}
+                onDrop={(e) => dropHaddler(e, status, issue)}
+                draggable={true}
               >
                 <Card.Header>id: {issue.id}</Card.Header>
                 <Card.Body>
@@ -69,6 +81,8 @@ const IssueCard = ({ status, issuesCurrentStatus, taskStatuses }) => {
 const mapStateToProps = (state) => ({
   issuesRedux: state.issues.issues,
   urlRedux: state.url.url,
+  boardsRedux: state.boards.boards,
+  boardIsLoadedRedux: state.boardsIsLoaded.boardsIsLoaded
 });
 
-export default connect(mapStateToProps, {})(IssueCard);
+export default connect(mapStateToProps, { setBoards, setBoardsIsLoaded })(IssueCard);

@@ -5,11 +5,10 @@ import {
   getDataFromApi,
   getUrlIssuesApi,
   issueWithCurrentStatus,
-  setBoardsAndIssues
+  setBoardsAndIssues,
 } from "../../modules";
 
 import Container from "react-bootstrap/Container";
-
 
 import IssueCard from "../IssueCard";
 
@@ -34,15 +33,10 @@ const Layout = ({
   return (
     <div>
       <Container>
-
-
-            <IssueCard
-
-              issuesCurrentStatus={issuesCurrentStatus}
-              taskStatuses={taskStatuses}
-            />
-
-
+        <IssueCard
+          issuesCurrentStatus={issuesCurrentStatus}
+          taskStatuses={taskStatuses}
+        />
       </Container>
     </div>
   );

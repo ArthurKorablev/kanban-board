@@ -22,7 +22,6 @@ export const setBoardsAndIssues = (statuses, issues) => {
     const filteredIssues = issues.filter(
       (issue) => issue.currentStatus === statuses[i]
     );
-    console.log(issues);
     boardsWithIssues.push({ title: statuses[i], issues: filteredIssues });
   }
   return boardsWithIssues;
