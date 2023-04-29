@@ -16,7 +16,7 @@ import {
 } from "../../modules";
 import { useEffect, useState } from "react";
 
-const IssueCard = ({
+const IssueCardComponent = ({
   status,
   issuesCurrentStatus,
   taskStatuses,
@@ -25,16 +25,6 @@ const IssueCard = ({
   setBoards,
   setBoardsIsLoaded,
 }) => {
-  // const [currentBord, setCurrentBord] = useState(null);
-  // const [currentIssue, setCurrentIssue] = useState(null);
-
-  // console.log(issuesCurrentStatus);
-  // useEffect(() => {
-  //   if (!boardIsLoadedRedux) {
-  //     setBoards(taskStatuses, issuesCurrentStatus);
-  //     setBoardsIsLoaded(true);
-  //   }
-  // }, [boardIsLoadedRedux]);
 
   console.log(boardsRedux);
 
@@ -88,5 +78,5 @@ const mapStateToProps = (state) => ({
 });
 
 export default connect(mapStateToProps, { setBoards, setBoardsIsLoaded })(
-  IssueCard
+    IssueCardComponent
 );

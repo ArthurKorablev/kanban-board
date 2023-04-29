@@ -9,7 +9,7 @@ const boardsIsLoadedReduser = (state = initialState, action) => {
     case SET_BOARDS_IS_LOADED: {
       return {
         ...state,
-        urlIsLoaded: action.payload,
+        urlIsLoaded: action.payload
       };
     }
     default:
